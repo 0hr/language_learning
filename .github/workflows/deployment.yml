@@ -46,8 +46,6 @@ jobs:
                   STAGING_HOST: ${{ secrets.STAGING_HOST }}
                   STAGING_USER: ${{ secrets.STAGING_USER }}
               run: |
-                  echo "$STAGING_HOST"
-                  echo "$STAGING_USER"
                   ssh $STAGING_USER@$STAGING_HOST "
                     cd /var/project/staging &&
                     git pull origin staging &&
@@ -95,11 +93,9 @@ jobs:
             - name: Deploy to staging
               if: success() # if successfully passed the tests
               env:
-                  STAGING_HOST: ${{ secrets.PRODUCTION_HOST }}
-                  STAGING_USER: ${{ secrets.PRODUCTION_USER }}
+                  PRODUCTION_HOST: ${{ secrets.PRODUCTION_HOST }}
+                  PRODUCTION_USER: ${{ secrets.PRODUCTION_USER }}
               run: |
-                  echo "$PRODUCTION_HOST"
-                  echo "$PRODUCTION_USER"
                   ssh $PRODUCTION_USER@$PRODUCTION_HOST "
                     cd /var/project/production &&
                     git fetch --tags &&
