@@ -10,4 +10,4 @@ router = APIRouter()
     summary="/", description="main",
 )
 async def main():
-    return {'status': 'ok'}
+    return {'status': 'ok - working'}

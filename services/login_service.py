@@ -6,3 +6,6 @@ class LoginService:
         if username == "admin" and password == "<PASSWORD>":
             return True
         return False
+
+def login_service() -> LoginService:
+    return LoginService()
