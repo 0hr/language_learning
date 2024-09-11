@@ -1,8 +1,8 @@
-import asyncio
-
 from fastapi import APIRouter, HTTPException
+from fastapi.params import Depends
 
 from requests.login import LoginRequest
+from services.login_service import LoginService, login_service
 
 router = APIRouter(prefix="/user", tags=["user"])
 
@@ -11,9 +11,10 @@ router = APIRouter(prefix="/user", tags=["user"])
     tags=["user"],
     summary="Login user", description="Login user",
 )
-async def user_login(login: LoginRequest):
+async def user_login(login: LoginRequest, login_service: LoginService = Depends(login_service)):
     try:
-
-        return {'status': 'ok'}
+        if login_service.login(login.username, login.password):
+            return {'status': 'login successfully'}
+        return {'status': 'login failed'}
     except Exception as e:
         raise HTTPException(status_code=500, detail={'error': str(e)})
